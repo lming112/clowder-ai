@@ -216,6 +216,8 @@ export class PluginResourceActivator {
       case 'schedule':
         await this.activateSchedule(manifest, resource);
         break;
+      case 'protocol':
+        break;
       default:
         throw new Error(`Unsupported resource type: ${resource.type}`);
     }
@@ -234,6 +236,8 @@ export class PluginResourceActivator {
         break;
       case 'schedule':
         await this.deactivateSchedule(manifest, resource);
+        break;
+      case 'protocol':
         break;
       default:
         throw new Error(`Unsupported resource type: ${resource.type}`);
@@ -337,7 +341,7 @@ export class PluginResourceActivator {
       throw new Error('MCP streamableHttp resource must declare a url');
     }
     if (resource.transport !== 'streamableHttp' && !resource.command) {
-      throw new Error('MCP resource must declare a command');
+      return; // skip commandless MCP resources (e.g. protocol-backed)
     }
     await this.upsertCapabilityEntry(manifest, resource, true);
   }
