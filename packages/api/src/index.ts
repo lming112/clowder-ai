@@ -197,6 +197,8 @@ import {
   projectSetupRoute,
   projectsBootstrapRoutes,
   projectsRoutes,
+  promptInjectionPreviewRoutes,
+  promptInjectionRoutes,
   proposalRoutes,
   pushRoutes,
   queueRoutes,
@@ -2478,6 +2480,8 @@ async function main(): Promise<void> {
   await app.register(configRoutes);
   await app.register(configSecretsRoutes);
   await app.register(rulesRoutes);
+  await app.register(promptInjectionRoutes);
+  await app.register(promptInjectionPreviewRoutes);
   await app.register(servicesRoutes, {
     lifecycle: {
       autoStartEnabled: true,

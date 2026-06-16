@@ -1121,6 +1121,7 @@ export async function* invokeSingleCat(deps: InvocationDeps, params: InvocationP
           'threadStore.get:mission',
           signal,
         );
+        /* @segment M1 — Dispatch Mission Context */
         if (thread) {
           const { buildMissionPack, formatMissionPackPrompt } = await import(
             '../../../../../config/governance/mission-pack.js'
@@ -1577,6 +1578,7 @@ export async function* invokeSingleCat(deps: InvocationDeps, params: InvocationP
       effectivePrompt = `${contextHintPrefix}\n\n---\n\n${effectivePrompt}`;
     }
 
+    /* @segment M2 — Transcript Path Hints */
     effectivePrompt = appendTranscriptPathHints(effectivePrompt, TRANSCRIPT_DIR, threadId);
 
     capturePromptIfEnabled({
